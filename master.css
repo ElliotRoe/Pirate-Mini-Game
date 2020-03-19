@@ -1,0 +1,45 @@
+#Boat{
+  position: absolute;
+  width: 525px;
+  z-index: 1;
+  left: 275px;
+  top: 100px;
+  transform: translateY(0px);
+  transform: rotate(00deg);
+  animation: boatBob;
+  animation-duration: 3.1s;
+	animation-iteration-count: infinite;
+	animation-delay: 0.2s;
+	animation-timing-function: ease-in-out;
+}
+
+#Background {
+  position: absolute;
+  margin: 0px;
+  height: 621px;
+  z-index: -10;
+}
+
+.wave {
+  position: absolute;
+  width: 550px;
+  top: 350px;
+  z-index: 10;
+}
+
+.wave:nth-child(1){
+  left: 550px;
+}
+
+.ocean {
+  position: absolute;
+  width: 1102px;
+  height: 230px;
+  top: 400px;
+  z-index: -1;
+  background-color: #aad4ff;
+}
+
+.wrapper {
+  position: relative;
+}

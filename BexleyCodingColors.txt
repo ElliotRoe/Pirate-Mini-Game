@@ -1,0 +1,8 @@
+Colors:
+blues
+#12499e
+#adb3da
+
+blacks
+#222222
+#4f4f4f

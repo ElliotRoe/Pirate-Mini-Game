@@ -1,9 +1,9 @@
 #Boat{
   position: absolute;
-  width: 525px;
+  width: 575px;
   z-index: 1;
   left: 275px;
-  top: 100px;
+  top: 70px;
   transform: translateY(0px);
   transform: rotate(00deg);
   animation: boatBob;
@@ -42,4 +42,29 @@
 
 .wrapper {
   position: relative;
+}
+
+.coinIcon{
+  width: 10px;
+}
+
+.upgradeMenu {
+  position: absolute;
+  display: flex;
+  list-style: none;
+}
+
+.upgradeMenu li {
+  margin: 10px;
+  background-color: #12499e;
+  color: white;
+  padding: 10px;
+  transition: 0.5s;
+}
+
+.upgradeMenu li:hover {
+  margin: 10px;
+  background-color: #adb3da;
+  color: white;
+  padding: 10px 15px;
 }

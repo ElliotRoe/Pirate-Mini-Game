@@ -11,6 +11,13 @@ window.onload = function what() {
 
   var wave = document.querySelector("body > div > div.waves");
 
+  var mast = document.getElementsByClassName('Mast')
+  console.log(mast);
+  var hull = document.getElementsByClassName('Hull');
+  console.log(hull);
+  var hullButton = document.getElementById('hullButton');
+  hullButton.addEventListener("click",upgradeHull);
+
   console.log("Width: " + Background.offsetWidth);
 
   var amp = 12/2;
@@ -21,8 +28,9 @@ window.onload = function what() {
   var angleAmp = 2;
 
   var boatId = setInterval(boatAnim, 5);
-  var cloudId = setInterval(cloudAnim, 30);
+  var cloudId = setInterval(cloudAnim, 40);
   var waveId = setInterval(waveAnim, 20);
+  var riseId;
 
   var spawnWidth = 3000;
   var randomness = 40;
@@ -37,7 +45,7 @@ window.onload = function what() {
   });
 
 
-
+//Animations
   function cloudAnim() {
     cloudArray.forEach((cloud, i) => {
       //if it hits the end reset the various things
@@ -73,5 +81,33 @@ window.onload = function what() {
     Boat.transform = "translateY(" + position + "px) " + "rotate(" + angle + "deg)";
 
     i += 0.05;
+  }
+
+  var currentHull = 1;
+  var playerCoin = 1000;
+  var j;
+  var riseHeight;
+
+  //upgrade functions
+  function upgradeHull() {
+    if (playerCoin > 100) {
+      hull[currentHull-1].style.opacity = "0";
+      hull[++currentHull-1].style.opacity = "1";
+      j = 0;
+      riseHeight = 20;
+      riseId = setInterval(riseAnim,100);
+    }
+  }
+
+
+  function riseAnim() {
+    if (++j>riseHeight) {
+      clearInterval(riseId);
+      j = 0;
+      console.log("stopped");
+    } else {
+      Boat.top = 450 - j - riseHeight*(currentHull-2) + "px";
+      console.log(j);
+    }
   }
 }

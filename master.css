@@ -1,16 +1,25 @@
+body {
+  overflow: hidden; /* Hide scrollbars */
+}
+
 #Boat{
   position: absolute;
-  width: 575px;
   z-index: 1;
-  left: 275px;
-  top: 70px;
   transform: translateY(0px);
   transform: rotate(00deg);
-  animation: boatBob;
-  animation-duration: 3.1s;
-	animation-iteration-count: infinite;
-	animation-delay: 0.2s;
-	animation-timing-function: ease-in-out;
+  left: 550px;
+  top: 450px;
+}
+
+#Boat img {
+  position: absolute;
+  width: 575px;
+  left: -287px;
+  top: -372px;
+}
+
+#Boat img:nth-child(n+3) {
+  opacity: 0.001;
 }
 
 #Background {
@@ -47,7 +56,7 @@
   width: 1102px;
   height: 230px;
   top: 400px;
-  z-index: -1;
+  z-index: 2;
   background-color: #12499e;
   background-image: linear-gradient(#12499e 50%, #15376b);
 }
@@ -80,14 +89,22 @@
 
 .upgradeMenu li {
   margin: auto;
-  background-color: #12499e;
-  color: white;
+  background-color: #74441d;
+  color: black;
   padding: 15px;
   transition: 0.5s;
 }
 
 .upgradeMenu li:hover {
-  background-color: #adb3da;
-  color: white;
+  background-color: #3c230f;
+  color: black;
   padding: 10px 20px;
+}
+
+.upgradeMenu li:active {
+  background-color: #12499e;
+}
+
+.upgradeMenu li:disabled {
+
 }

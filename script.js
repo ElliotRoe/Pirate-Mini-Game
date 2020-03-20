@@ -12,11 +12,20 @@ window.onload = function what() {
   var wave = document.querySelector("body > div > div.waves");
 
   var mast = document.getElementsByClassName('Mast')
-  console.log(mast);
+  //console.log(mast);
   var hull = document.getElementsByClassName('Hull');
-  console.log(hull);
+  //console.log(hull);
   var hullButton = document.getElementById('hullButton');
   hullButton.addEventListener("click",upgradeHull);
+
+  var mastButton = document.getElementById('mastButton');
+  mastButton.addEventListener("click",upgradeMast);
+  mastButton.disabled = true;
+
+  var cannonButton = document.getElementById('cannonButton');
+  cannonButton.addEventListener("click",upgradeCannon);
+  cannonButton.disabled = true;
+
 
   console.log("Width: " + Background.offsetWidth);
 
@@ -83,22 +92,8 @@ window.onload = function what() {
     i += 0.05;
   }
 
-  var currentHull = 1;
-  var playerCoin = 1000;
   var j;
   var riseHeight;
-
-  //upgrade functions
-  function upgradeHull() {
-    if (playerCoin > 100) {
-      hull[currentHull-1].style.opacity = "0";
-      hull[++currentHull-1].style.opacity = "1";
-      j = 0;
-      riseHeight = 20;
-      riseId = setInterval(riseAnim,100);
-    }
-  }
-
 
   function riseAnim() {
     if (++j>riseHeight) {
@@ -110,4 +105,38 @@ window.onload = function what() {
       console.log(j);
     }
   }
+
+  //upgrade functions
+
+  var currentHull = 1;
+  var currentMast = 1;
+  var currentCannon = 1;
+  var playerCoin = 1000;
+
+  function upgradeHull() {
+    if (playerCoin > 100) {
+      hull[currentHull-1].style.opacity = "0";
+      hull[++currentHull-1].style.opacity = "1";
+      mastButton.disabled = false;
+      cannonButton.disabled = false;
+      j = 0;
+      riseHeight = 20;
+      riseId = setInterval(riseAnim,100);
+    }
+  }
+
+  function upgradeMast() {
+    if (playerCoin > 50 && currentHull>currentMast) {
+      hull[currentMast-1].style.opacity = "0";
+      hull[++currentMast-1].style.opacity = "1";
+    }
+  }
+
+  function upgradeCannon() {
+    if (playerCoin > 175 && currentHull>currentCannon) {
+      hull[currentMast-1].style.opacity = "0";
+      hull[++currentMast-1].style.opacity = "1";
+    }
+  }
+
 }

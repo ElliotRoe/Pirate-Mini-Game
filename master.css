@@ -87,7 +87,7 @@ body {
   z-index: 100;
 }
 
-.upgradeMenu li {
+.upgradeMenu li button{
   margin: auto;
   background-color: #74441d;
   color: black;
@@ -95,16 +95,16 @@ body {
   transition: 0.5s;
 }
 
-.upgradeMenu li:hover {
+.upgradeMenu li button:hover {
   background-color: #3c230f;
   color: black;
   padding: 10px 20px;
 }
 
-.upgradeMenu li:active {
+.upgradeMenu li button:active {
   background-color: #12499e;
 }
 
-.upgradeMenu li:disabled {
-
+.upgradeMenu li button:disabled {
+  background-color: black;
 }

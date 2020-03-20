@@ -1,6 +1,18 @@
 window.onload = function what() {
   var Boat = document.getElementById('Boat').style;
   var Background = document.getElementById('Background');
+  var backgroundMusic = document.getElementsByClassName('backgroundMusic');
+  var upgradeSFX = document.getElementById('upgradeSFX');
+  var playButton = document.getElementById('playButton');
+  var startScreen = document.getElementById('startScreen');
+  playButton.onclick = function(){
+    startScreen.classList.add("slideAnimation");
+    Array.from(backgroundMusic).forEach(track => {
+      track.volume = 0.1;
+      track.play();
+    });
+
+  };
 
   var cloudArray = [
     document.querySelector("body > div > div.clouds > .cloud:nth-child(1)"),
@@ -113,8 +125,14 @@ window.onload = function what() {
   var currentCannon = 1;
   var playerCoin = 1000;
 
+  var hullUpgradeCost = 50;
+  var mastUpgradeCost = 100;
+  var cannonUpgradeCost = 175;
+
   function upgradeHull() {
-    if (playerCoin > 100) {
+    if (playerCoin > hullUpgradeCost) {
+      upgradeSFX.currentTime = 0;
+      upgradeSFX.play();
       hull[currentHull-1].style.opacity = "0";
       hull[++currentHull-1].style.opacity = "1";
       mastButton.disabled = false;
@@ -126,14 +144,18 @@ window.onload = function what() {
   }
 
   function upgradeMast() {
-    if (playerCoin > 50 && currentHull>currentMast) {
+    if (playerCoin > mastUpgradeCost && currentHull>currentMast) {
+      upgradeSFX.currentTime = 0;
+      upgradeSFX.play();
       hull[currentMast-1].style.opacity = "0";
       hull[++currentMast-1].style.opacity = "1";
     }
   }
 
   function upgradeCannon() {
-    if (playerCoin > 175 && currentHull>currentCannon) {
+    if (playerCoin > cannonUpgradeCost && currentHull>currentCannon) {
+      upgradeSFX.currentTime = 0;
+      upgradeSFX.play();
       hull[currentMast-1].style.opacity = "0";
       hull[++currentMast-1].style.opacity = "1";
     }

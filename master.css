@@ -2,6 +2,31 @@ body {
   overflow: hidden; /* Hide scrollbars */
 }
 
+#startScreen {
+  position: absolute;
+  top: 0px;
+  height: 630px;
+  width: 1102px;
+  z-index: 200;
+  background-color: brown;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  animation: slideDown;
+  transition: 0.75s;
+}
+
+#startScreen button {
+  height: 100px;
+  width: 300px;
+  margin: auto;
+}
+
+#startScreen.slideAnimation {
+  transition: 0.75s;
+  top: 615px !important;
+}
+
 #Boat{
   position: absolute;
   z-index: 1;

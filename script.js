@@ -29,8 +29,19 @@ window.onload = function what() {
   //console.log(hull);
   var cannon = document.getElementsByClassName('Cannon');
 
+  var costTag = document.getElementsByClassName('costTag')[0];
+
   var hullButton = document.getElementById('hullButton');
   hullButton.addEventListener("click",upgradeHull);
+  hullButton.addEventListener("mousemove",function showCost(event) {
+  var x = event.clientX;
+  var y = event.clientY;
+  costTag.style.opacity = 1;
+  costTag.style.transform = "translate("+(x-14)+"px,"+(y-14)+"px)";
+  });
+  hullButton.addEventListener("mouseout",function hideCost(event) {
+    costTag.style.opacity = 0;
+  });
 
   var mastButton = document.getElementById('mastButton');
   mastButton.addEventListener("click",upgradeMast);

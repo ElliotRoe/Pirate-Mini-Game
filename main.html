@@ -8,7 +8,7 @@
 </head>
 
 <body>
-  <audio src="Audio\Music Loops\Casual Game Music 01.wav" type="audio/wav" class="backgroundMusic" loop>
+  <audio src="Audio\Music Loops\Casual Game Music 05.wav" type="audio/wav" class="backgroundMusic" loop>
     You need to update your browser!
   </audio>
   <audio src="Audio\Ambient\Amb Beach 2.wav" type="audio/wav" class="backgroundMusic" loop>
@@ -19,6 +19,16 @@
   </audio>
   <script src="script.js"></script>
   <div class="wrapper">
+    <div class="costTag">
+      <img src="Coin.png" alt="">
+    </div>
+    <div class="menuWrapper">
+      <img src="UI\UpgradeMenuBackground.png" alt="" id="UpgradeMenu">
+      <input type="image" id="hullButton" class="upgradeButton" src="UI\HullButton\Regular.png"/>
+      <input type="image" id="mastButton" class="upgradeButton" src="UI\MastButton\Regular.png"/>
+      <input type="image" id="cannonButton" class="upgradeButton" src="UI\CannonButton\Regular.png"/>
+      <input type="image" id="shopButton" class="upgradeButton" src="UI\ShopButton\Regular.png"/>
+    </div>
     <div id="startScreen">
       <button type="button" name="playButton" id="playButton"><h3>Play!</h3></button>
     </div>
@@ -48,40 +58,6 @@
       <img src="Waves.png" alt="" class="wave">
     </div>
     <div class="ocean">
-      <div class="menuWrapper">
-      <ul class="upgradeMenu">
-        <li>
-          <button type="button" name="hull" id="hullButton">
-          <div class="upgradeText">
-            <b>Upgrade Hull</b>
-          </div>
-          <div>
-            <img src="Coin.png" alt="" class="coinIcon">100
-          </div>
-          </button>
-        </li>
-        <li>
-          <button type="button" name="mast" id="mastButton">
-          <div class="upgradeText">
-            <b>Upgrade Sail</b>
-          </div>
-          <div>
-            <img src="Coin.png" alt="" class="coinIcon">100
-          </div>
-        </button>
-        </li>
-        <li>
-          <button type="button" name="cannon" id="cannonButton">
-          <div class="upgradeText">
-            <b>Upgrade Cannons</b>
-          </div>
-          <div>
-            <img src="Coin.png" alt="" class="coinIcon">100
-          </div>
-        </button>
-        </li>
-      </ul>
-    </div>
     </div>
   </div>
 </body>

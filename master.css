@@ -93,48 +93,96 @@ body {
 }
 
 .menuWrapper {
+  position: absolute;
+  left: -20px;
+  top: -25px;
   background-color: none;
   margin: 40px;
   z-index: 50;
 }
 
-.coinIcon {
-  width: 12px;
+#UpgradeMenu {
+  position: absolute;
+  height: 270px;
 }
 
-.upgradeText {
-  margin-bottom: 5px;
+#hullButton {
+  position: absolute;
+  height: 85px;
+  top: 65px;
+  left: 48px;
+  z-index: 1000;
 }
 
-.upgradeMenu {
-  padding: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  list-style: none;
-  width: 1000px;
-  height: 200px;
-  z-index: 100;
+#mastButton {
+  position: absolute;
+  height: 62px;
+  top: 155px;
+  left: 55px;
 }
 
-.upgradeMenu li button{
-  margin: auto;
-  background-color: #74441d;
-  color: black;
-  padding: 15px;
-  transition: 0.5s;
+#cannonButton {
+  position: absolute;
+  height: 58px;
+  top: 155px;
+  left: 132px;
 }
 
-.upgradeMenu li button:hover {
-  background-color: #3c230f;
-  color: black;
-  padding: 10px 20px;
+#shopButton {
+  position: absolute;
+  height: 143px;
+  top: 72px;
+  left: 204px;
 }
 
-.upgradeMenu li button:active {
-  background-color: #12499e;
+.upgradeButton:hover {
+  animation: wiggle;
+  animation-duration: 0.3s;
+  transition-timing-function: ease-in-out;
 }
 
-.upgradeMenu li button:disabled {
+.upgradeButton:active {
+  filter: brightness(90%);
+}
+
+.upgradeButton:disabled {
+  filter: brightness(75%);
+  filter: grayscale();
+  transform: scale(0.9);
+}
+
+.upgradeButton:disabled:hover {
+  animation: none !important;
+}
+
+@keyframes wiggle {
+  0% {
+    transform-origin: 50% 20%;
+    transform: rotate(0deg);
+  }
+
+  33% {
+    transform: rotate(4deg);
+  }
+
+  66% {
+    transform: rotate(-2deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.costTag {
+  position: absolute;
+  z-index: 9999;
   background-color: black;
+  color: white;
+  padding: 3px;
+  opacity: 0.001;
+}
+
+.costTag img{
+  width: 12px;
 }

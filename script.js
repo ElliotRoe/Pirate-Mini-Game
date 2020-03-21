@@ -23,10 +23,12 @@ window.onload = function what() {
 
   var wave = document.querySelector("body > div > div.waves");
 
-  var mast = document.getElementsByClassName('Mast')
+  var mast = document.getElementsByClassName('Mast');
   //console.log(mast);
   var hull = document.getElementsByClassName('Hull');
   //console.log(hull);
+  var cannon = document.getElementsByClassName('Cannon');
+
   var hullButton = document.getElementById('hullButton');
   hullButton.addEventListener("click",upgradeHull);
 
@@ -111,10 +113,8 @@ window.onload = function what() {
     if (++j>riseHeight) {
       clearInterval(riseId);
       j = 0;
-      console.log("stopped");
     } else {
       Boat.top = 450 - j - riseHeight*(currentHull-2) + "px";
-      console.log(j);
     }
   }
 
@@ -147,8 +147,9 @@ window.onload = function what() {
     if (playerCoin > mastUpgradeCost && currentHull>currentMast) {
       upgradeSFX.currentTime = 0;
       upgradeSFX.play();
-      hull[currentMast-1].style.opacity = "0";
-      hull[++currentMast-1].style.opacity = "1";
+      mast[currentMast-1].style.opacity = "0";
+      mast[++currentMast-1].style.opacity = "1";
+      mastButton.disabled = true;
     }
   }
 
@@ -156,8 +157,9 @@ window.onload = function what() {
     if (playerCoin > cannonUpgradeCost && currentHull>currentCannon) {
       upgradeSFX.currentTime = 0;
       upgradeSFX.play();
-      hull[currentMast-1].style.opacity = "0";
-      hull[++currentMast-1].style.opacity = "1";
+      cannon[currentCannon-1].style.opacity = "0";
+      cannon[++currentCannon-1].style.opacity = "1";
+      cannonButton.disabled = true;
     }
   }
 

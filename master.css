@@ -43,7 +43,7 @@ body {
   top: -372px;
 }
 
-#Boat img:nth-child(n+3) {
+#Boat img:nth-child(n+4) {
   opacity: 0.001;
 }
 
@@ -87,7 +87,15 @@ body {
 }
 
 .wrapper {
-  position: relative;
+  position: absolute;
+  top: -8px;
+  left: -8px;
+}
+
+.menuWrapper {
+  background-color: none;
+  margin: 40px;
+  z-index: 50;
 }
 
 .coinIcon {
@@ -100,15 +108,12 @@ body {
 
 .upgradeMenu {
   padding: 0;
-  position: absolute;
   display: flex;
   justify-content: space-around;
   align-items: center;
   list-style: none;
   width: 1000px;
   height: 200px;
-  left: 50px;
-  top: 420px;
   z-index: 100;
 }
 

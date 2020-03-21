@@ -30,6 +30,7 @@ window.onload = function what() {
   var cannon = document.getElementsByClassName('Cannon');
 
   var costTag = document.getElementsByClassName('costTag')[0];
+  var costText = document.getElementById('costText');
 
   var hullButton = document.getElementById('hullButton');
   hullButton.addEventListener("click",upgradeHull);
@@ -37,19 +38,49 @@ window.onload = function what() {
   var x = event.clientX;
   var y = event.clientY;
   costTag.style.opacity = 1;
-  costTag.style.transform = "translate("+(x-14)+"px,"+(y-14)+"px)";
+  costTag.style.transform = "translate("+(x+30)+"px,"+(y-30)+"px)";
+  costText.innerHTML = hullUpgradeCost;
   });
   hullButton.addEventListener("mouseout",function hideCost(event) {
-    costTag.style.opacity = 0;
+    costTag.style.opacity = 0.001;
   });
+
 
   var mastButton = document.getElementById('mastButton');
   mastButton.addEventListener("click",upgradeMast);
   mastButton.disabled = true;
+  mastButton.addEventListener("mousemove",function showCost(event) {
+  var x = event.clientX;
+  var y = event.clientY;
+  costTag.style.opacity = 1;
+  costTag.style.transform = "translate("+(x+30)+"px,"+(y-30)+"px)";
+  costText.innerHTML = mastUpgradeCost;
+  });
+  mastButton.addEventListener("mouseout",function hideCost(event) {
+    costTag.style.opacity = 0.001;
+  });
 
   var cannonButton = document.getElementById('cannonButton');
   cannonButton.addEventListener("click",upgradeCannon);
   cannonButton.disabled = true;
+  cannonButton.addEventListener("mousemove",function showCost(event) {
+  var x = event.clientX;
+  var y = event.clientY;
+  costTag.style.opacity = 1;
+  costTag.style.transform = "translate("+(x+30)+"px,"+(y-30)+"px)";
+  costText.innerHTML = cannonUpgradeCost;
+  });
+  cannonButton.addEventListener("mouseout",function hideCost(event) {
+    costTag.style.opacity = 0.001;
+  });
+
+  var shopButton = document.getElementById('shopButton');
+  var shopMenuMover = document.getElementsByClassName('shopMenuMover')[0];
+  var open = false;
+  shopButton.addEventListener("click", function openShop() {
+    shopMenuMover.classList.toggle("move",!open);
+    open = !open;
+  });
 
 
   console.log("Width: " + Background.offsetWidth);
@@ -148,9 +179,11 @@ window.onload = function what() {
       hull[++currentHull-1].style.opacity = "1";
       mastButton.disabled = false;
       cannonButton.disabled = false;
+      hullUpgradeCost += 100;
       j = 0;
       riseHeight = 20;
       riseId = setInterval(riseAnim,100);
+      costTag.style.opacity = 0.001;
     }
   }
 
@@ -161,6 +194,8 @@ window.onload = function what() {
       mast[currentMast-1].style.opacity = "0";
       mast[++currentMast-1].style.opacity = "1";
       mastButton.disabled = true;
+      mastUpgradeCost += 75;
+      costTag.style.opacity = 0.001;
     }
   }
 
@@ -171,6 +206,8 @@ window.onload = function what() {
       cannon[currentCannon-1].style.opacity = "0";
       cannon[++currentCannon-1].style.opacity = "1";
       cannonButton.disabled = true;
+      cannonUpgradeCost += 50;
+      costTag.style.opacity = 0.001;
     }
   }
 

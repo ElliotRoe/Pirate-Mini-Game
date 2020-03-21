@@ -32,7 +32,7 @@ body {
   z-index: 1;
   transform: translateY(0px);
   transform: rotate(00deg);
-  left: 550px;
+  left: 770px;
   top: 450px;
 }
 
@@ -43,7 +43,7 @@ body {
   top: -372px;
 }
 
-#Boat img:nth-child(n+4) {
+#Boat .mainBoat:nth-child(n+4) {
   opacity: 0.001;
 }
 
@@ -107,32 +107,32 @@ body {
 }
 
 #hullButton {
-  position: absolute;
   height: 85px;
   top: 65px;
   left: 48px;
-  z-index: 1000;
 }
 
 #mastButton {
-  position: absolute;
   height: 62px;
   top: 155px;
   left: 55px;
 }
 
 #cannonButton {
-  position: absolute;
   height: 58px;
   top: 155px;
   left: 132px;
 }
 
 #shopButton {
-  position: absolute;
   height: 143px;
   top: 72px;
   left: 204px;
+}
+
+.upgradeButton {
+    position: absolute;
+    z-index: 1000;
 }
 
 .upgradeButton:hover {
@@ -153,6 +153,50 @@ body {
 
 .upgradeButton:disabled:hover {
   animation: none !important;
+}
+
+.shopMenuWrapper {
+  position: absolute;
+  top: 200px;
+  left: 0px;
+  z-index: -10;
+  clip-path: polygon(0 10%, 100% 10%, 100% 100%, 0% 100%);
+}
+
+.shopMenuMover {
+  position: relative;
+  top: -280px;
+  transition: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+.shopMenuMover.move {
+  top: 0 !important;
+  transition: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+.shopMenuWrapper img {
+  width: 400px;
+  z-index: -10;
+}
+
+#leftButton {
+  left: 60px;
+  top: 70px;
+  height: 125px;
+}
+
+#rightButton {
+  left: 200px;
+  top: 76px;
+  height: 112px;
+}
+
+#bottomButton {
+  left: 120px;
+  top: 210px;
+  height: 110px;
 }
 
 @keyframes wiggle {
@@ -176,13 +220,20 @@ body {
 
 .costTag {
   position: absolute;
+  display: flex;
   z-index: 9999;
-  background-color: black;
   color: white;
-  padding: 3px;
   opacity: 0.001;
+  background-color: black;
+  padding: 5px;
+  border-radius: 5px;
 }
 
 .costTag img{
-  width: 12px;
+  width: 20px;
+  margin-right: 2.5px;
+}
+
+.costTag span {
+  font-size: 20px;
 }

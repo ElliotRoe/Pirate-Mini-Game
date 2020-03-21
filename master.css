@@ -30,21 +30,35 @@ body {
 #Boat{
   position: absolute;
   z-index: 1;
+  width: 575px;
+  height: 372px;
   transform: translateY(0px);
   transform: rotate(00deg);
-  left: 770px;
-  top: 450px;
+  left: 483px;
+  top: 111px;
 }
 
-#Boat img {
+#Boat .mainBoat {
   position: absolute;
   width: 575px;
-  left: -287px;
-  top: -372px;
+  height: 372px;
 }
 
 #Boat .mainBoat:nth-child(n+4) {
   opacity: 0.001;
+}
+
+.Flag {
+  position: absolute;
+  height: 34px;
+  top: 10px;
+  left: 267px;
+
+}
+
+.Flag {
+  left: 210px;
+  top: 7px;
 }
 
 #Background {
@@ -66,7 +80,7 @@ body {
   position: absolute;
   display: flex;
   width: 1102px;
-  top: 350px;
+  top: 383px;
   left: -275px;
   z-index: 3;
 }
@@ -79,8 +93,8 @@ body {
 .ocean {
   position: absolute;
   width: 1102px;
-  height: 230px;
-  top: 400px;
+  height: 210px;
+  top: 420px;
   z-index: 2;
   background-color: #12499e;
   background-image: linear-gradient(#12499e 50%, #15376b);

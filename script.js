@@ -156,7 +156,7 @@ window.onload = function what() {
       clearInterval(riseId);
       j = 0;
     } else {
-      Boat.top = 450 - j - riseHeight*(currentHull-2) + "px";
+      Boat.top = 111 - j - riseHeight*(currentHull-2) + "px";
     }
   }
 

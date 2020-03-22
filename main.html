@@ -8,10 +8,31 @@
 </head>
 
 <body>
+  <audio src="Audio\Music Loops\Casual Game Music 01.wav" type="audio/wav" class="backgroundMusic" loop>
+    You need to update your browser!
+  </audio>
+  <audio src="Audio\Music Loops\Casual Game Music 05.wav" type="audio/wav" class="backgroundMusic" loop>
+    You need to update your browser!
+  </audio>
+  <audio src="Audio\Music Loops\Casual Game Music 09.wav" type="audio/wav" class="backgroundMusic" loop>
+    You need to update your browser!
+  </audio>
+  <audio src="Audio\Music Loops\Casual Game Music 11.wav" type="audio/wav" class="backgroundMusic" loop>
+    You need to update your browser!
+  </audio>
+  <audio src="Audio\Music Loops\Casual Game Music 14.wav" type="audio/wav" class="backgroundMusic" loop>
+    You need to update your browser!
+  </audio>
   <audio src="Audio\Music Loops\Casual Game Music 16 - Halloween.wav" type="audio/wav" class="backgroundMusic" loop>
     You need to update your browser!
   </audio>
-  <audio src="Audio\Ambient\Amb Beach 2.wav" type="audio/wav" class="backgroundMusic" loop>
+  <audio src="Audio\Music Loops\Casual Game Music 19.wav" type="audio/wav" class="backgroundMusic" loop>
+    You need to update your browser!
+  </audio>
+  <audio src="Audio\Music Loops\Casual Game Music 20.wav" type="audio/wav" class="backgroundMusic" loop>
+    You need to update your browser!
+  </audio>
+  <audio src="Audio\Ambient\Amb Beach 2.wav" type="audio/wav" class="ambientMusic" loop>
     You need to update your browser!
   </audio>
   <audio src="Audio\SFX\Cash Register.wav" type="audio/wav" class="SFX" id="upgradeSFX">
@@ -20,7 +41,17 @@
   <script src="script.js"></script>
   <div class="wrapper">
     <div class="costTag">
-      <img src="Coin.png" alt=""><span id="costText">100</span>
+      <div class="flexContainer">
+        <img src="Coin.png" alt=""><span id="costText">100</span>
+      </div>
+    </div>
+    <div class="costTag" id="timeTag">
+      <div class="flexContainer">
+        <img src="Coin.png" alt=""><span id="costText">100</span>
+      </div>
+      <div class="flexContainer">
+        <img src="Coin.png" alt=""><span id="timeText">100</span>
+      </div>
     </div>
     <div class="menuWrapper">
       <img src="UI\UpgradeMenuBackground.png" alt="" id="UpgradeMenu">
@@ -33,7 +64,10 @@
           <img src="UI\ShopMenu\ShopMenuBackground.png" alt="">
           <input type="image" id="leftButton" class="upgradeButton" src="UI\ShopMenu\LeftButton.png">
           <input type="image" id="rightButton" class="upgradeButton" src="UI\ShopMenu\RightButton.png">
-          <input type="image" id="bottomButton" class="upgradeButton" src="UI\ShopMenu\BottomButton.png">
+          <div id="bottomButton" class="upgradeButton">
+            <input type="image" src="UI\ShopMenu\BottomButton.png">
+            <img src="FigureIcon(1).png" alt="" id="bottomShopItem">
+          </div>
         </div>
       </div>
     </div>

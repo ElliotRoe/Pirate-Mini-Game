@@ -56,11 +56,6 @@ body {
 
 }
 
-.Flag {
-  left: 210px;
-  top: 7px;
-}
-
 #Background {
   position: absolute;
   margin: 0px;
@@ -211,6 +206,23 @@ body {
   left: 120px;
   top: 210px;
   height: 110px;
+  width: 155.63px;
+}
+
+#bottomButton input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+#bottomShopItem {
+  position: absolute;
+  top: 35px;
+  left: 43px;
+  height: 100px;
+  width: auto;
+  z-index: 1000;
+  clip-path: inset(0 0 40% 0);
 }
 
 @keyframes wiggle {
@@ -234,7 +246,6 @@ body {
 
 .costTag {
   position: absolute;
-  display: flex;
   z-index: 9999;
   color: white;
   opacity: 0.001;
@@ -243,11 +254,15 @@ body {
   border-radius: 5px;
 }
 
-.costTag img{
+.flexContainer {
+  display: flex;
+}
+
+.flexContainer img{
   width: 20px;
   margin-right: 2.5px;
 }
 
-.costTag span {
+.flexContainer span {
   font-size: 20px;
 }

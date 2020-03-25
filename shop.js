@@ -2,10 +2,13 @@ class Shop {
   constructor(name, items, numItems, inventory) {
     this.itemList = items;
     this.shopName = name;
+    this.open = true;
     this.numberOfItemsDisplayed = numItems;
     this.displayItems = new Array();
     this.alreadyDisplayed = new Array();
     this.boughtItems = new Array();
+
+    //index 0 is left (Soundtrack); 1 is right (Flag); 2 is bottom (Figurehead);
     this.displayItems = this.setInitalDisplayItems(this.numberOfItemsDisplayed);
     this.connectedInven = inventory;
 
@@ -19,7 +22,7 @@ class Shop {
   setInitalDisplayItems(num) {
     var temp = new Array();
     for (var i = 0; i < num; i++) {
-      temp[i] = this.getNewItem();
+      temp[i] = this.getNewItem(i);
     }
     return temp;
   }
@@ -38,47 +41,41 @@ class Shop {
   }
 
   buyItem(itemIndex) {
-    this.boughtItems.push(this.displayItems[itemIndex]);
-    this.connectedInven.addItem(this.displayItems[itemIndex]);
-    this.displayItems[itemIndex].disabled = true;
-    console.log(this.boughtItems);
+    var item = this.displayItems[itemIndex];
+    this.boughtItems.push(item);
+    this.connectedInven.addItem(item);
+    item.disabled = true;
+    this.connectedInven.money -= item.cost;
   }
 
-  getNewItem() {
-    while (true) {
+  buyUpgrade(upgradeIndex) {
+    //0 is hull; 1 is mast; 2 is cannon;
+    this.connectedInven.upgrades[upgradeIndex]++;
+    this.connectedInven.money -= this.connectedInven.upgradeCosts[upgradeIndex];
+  }
+
+  getNewItem(type) {
+    var cont = true;
+    while (cont) {
       var temp = this.itemList[Math.floor(Math.random() * this.itemList.length)];
-      if (this.alreadyDisplayed.length >= this.itemList.length) this.alreadyDisplayed = this.displayItems.slice();
-      if (this.alreadyDisplayed.indexOf(temp) == -1) {
-        this.alreadyDisplayed.push(temp);
-        return temp;
+      switch(type) {
+        case 0:
+          if (temp.type == 'Soundtrack') cont = false;
+          break;
+        case 1:
+          if (temp.type == 'Flag') cont = false;
+          break;
+        case 2:
+          if (temp.type == 'Mast') cont = false;
+          break;
       }
     }
-  }
-
-  logItems() {
-    //i think this is just a toString method
-    var temp = "";
-    this.displayItems.forEach((item, i) => {
-      temp += item.name + ", ";
-    });
-
-    console.log(temp);
-
-    temp = "";
-
-    this.alreadyDisplayed.forEach((item, i) => {
-      temp += item.name + ", ";
-    });
-
-    console.log(temp);
-
-    this.displayItems[0].expired = true;
-    this.updateDisplayItems();
+    return temp;
   }
 }
 
 class Item {
-  constructor(name, t, scr, cost, type) {
+  constructor(name, t, cost, type, imageSrc, audioSrc) {
     this.name = name;
     //should be an array [H,M,S]
     //time kept in milliseconds
@@ -89,8 +86,10 @@ class Item {
     this.startTime = today.getTime();
     this.finishTime = today.getTime() + this.time;
     this.timeLeft = this.finishTime - today.getTime();
-    this.source = scr;
-    this.itemCost = cost;
+    this.imageSrc = imageSrc;
+    if (audioSrc === undefined) audioSrc = ""; else
+    this.audioSrc = audioSrc;
+    this.cost = cost;
     this.itemType = type;
     this.expired = false;
     this.ID;
@@ -127,7 +126,7 @@ class Item {
   }
 
   clone() {
-    return new Item(this.itemName, this.timeParam, this.source, this.itemCost, this.type);
+    return new Item(this.itemName, this.timeParam, this.source, this.cost, this.type);
   }
 
   timeLeftToString() {
@@ -140,9 +139,14 @@ class Item {
 }
 
 Shop.allItemList = [
-  new Item("Item 1",[2,0,0],"",120,"Flag"),
-  new Item("Item 2",[2,0,0],"",100,"Mast"),
-  new Item("Item 3",[2,0,0],"",130,"Soundtrack"),
-  new Item("Item 4",[2,0,0],"",100,"Mast"),
-  new Item("Item 5",[2,0,0],"",100,"Mast")
+  new Item("Theme 1",[24,0,0], 0,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 01.wav"),
+  new Item("Theme 2",[24,0,0],75,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 05.wav"),
+  new Item("Peaceful 1",[24,0,0],100,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 09.wav"),
+  new Item("Peaceful 2",[24,0,0],100,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 11.wav"),
+  new Item("Halloween 1",[24,0,0],125,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 14.wav"),
+  new Item("Halloween 2",[24,0,0],150,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 16 - Halloween.wav"),
+  new Item("Hawaiian",[24,0,0],150,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 19.wav"),
+  new Item("Excited",[24,0,0],150,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 20.wav"),
+  new Item("Bexley Coding Flag",[24,0,0],150,"Flag","Flag(1).png"),
+  new Item("Wolf Mast Head",[24,0,0],150,"Mast","Mast(1).png"),
 ];

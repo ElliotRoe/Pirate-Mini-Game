@@ -7,6 +7,7 @@ body {
   top: 0px;
   height: 630px;
   width: 1102px;
+  background-image: url("UI\\StartscreenBackground.png");
   z-index: 200;
   background-color: brown;
   display: flex;
@@ -16,9 +17,7 @@ body {
   transition: 0.75s;
 }
 
-#startScreen button {
-  height: 100px;
-  width: 300px;
+#startScreen input {
   margin: auto;
 }
 
@@ -134,33 +133,34 @@ body {
 }
 
 #shopButton {
+  position: absolute;
   height: 143px;
   top: 72px;
   left: 204px;
 }
 
-.upgradeButton {
+.wiggleButton {
     position: absolute;
     z-index: 1000;
 }
 
-.upgradeButton:hover {
+.wiggleButton:hover {
   animation: wiggle;
   animation-duration: 0.3s;
   transition-timing-function: ease-in-out;
 }
 
-.upgradeButton:active {
+.wiggleButton:active {
   filter: brightness(90%);
 }
 
-.upgradeButton:disabled {
+.wiggleButton:disabled {
   filter: brightness(75%);
   filter: grayscale();
   transform: scale(0.9);
 }
 
-.upgradeButton:disabled:hover {
+.wiggleButton:disabled:hover {
   animation: none !important;
 }
 
@@ -174,14 +174,14 @@ body {
 
 .shopMenuMover {
   position: relative;
-  top: -280px;
-  transition: 1s;
+  top: 0px;
+  transition: 0.6s;
   transition-timing-function: ease-in-out;
 }
 
 .shopMenuMover.move {
-  top: 0 !important;
-  transition: 1s;
+  top: -280px !important;
+  transition: 0.6s;
   transition-timing-function: ease-in-out;
 }
 
@@ -194,12 +194,14 @@ body {
   left: 60px;
   top: 70px;
   height: 125px;
+  width: 128.2px;
 }
 
 #rightButton {
   left: 200px;
   top: 76px;
   height: 112px;
+  width: 130px;
 }
 
 #bottomButton {
@@ -209,20 +211,133 @@ body {
   width: 155.63px;
 }
 
-#bottomButton input {
+.shopButton {
   position: absolute;
   width: 100%;
   height: 100%;
 }
 
-#bottomShopItem {
+.leftShopItem {
   position: absolute;
+  height: 60px;
+  width: 40.3px !important;
+  z-index: 300 !important;
   top: 35px;
+  left: 45px;
+}
+
+.rightShopItem {
+  position: absolute;
+  height: 55px;
+  width: 101.2px !important;
+  top: 28px;
+  left: 20px;
+  z-index: 300 !important;
+}
+
+.bottomShopItem {
+  position: absolute;
+  top: 27px;
   left: 43px;
   height: 100px;
+  width: 95.41px !important;
+  z-index: 300 !important;
+  clip-path: inset(0 0 50% 0);
+}
+
+#rightButtonWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#leftButtonWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.leftArrows {
+  left: 107px;
+  top: 106px;
+  width: 29.5px;
+  height: 53.1px;
+  z-index: 100000;
+}
+
+.bottomArrows {
+  left: 180px;
+  top: 240px;
+  width: 29.5px;
+  height: 53.1px;
+  z-index: 100000;
+}
+
+#brightArrow {
+  transform: translateX(70px);
+}
+
+#bleftArrow {
+  transform: translateX(-70px);
+}
+
+#lrightArrow {
+  transform: translateX(50px);
+}
+
+#lleftArrow {
+  transform: translateX(-50px);
+}
+
+.arrow {
+  position: absolute;
+  display: none;
+}
+
+.rightArrows {
+  left: 250px;
+  top: 106px;
+  width: 29.5px;
+  height: 53.1px;
+  z-index: 100000;
+}
+
+#rrightArrow {
+  transform: translateX(53px);
+}
+
+#rleftArrow {
+  transform: translateX(-53px);
+}
+
+#soundtrackText {
+  position: absolute;
+  height: 20px;
   width: auto;
-  z-index: 1000;
-  clip-path: inset(0 0 40% 0);
+  z-index: 999;
+  top: 100px;
+  left: 25px;
+  transform-origin: center;
+  transform: rotate(3deg);
+}
+
+#figureHeadText {
+  position: absolute;
+  width: 130px;
+  height: auto;
+  top: 73px;
+  left: 5px;
+  z-index: 999;
+  transform-origin: center;
+  transform: rotate(6deg);
+}
+
+#flagText {
+  position: absolute;
+  left: 75px;
+  top: 78px;
+  width: 50px;
+  z-index: 999;
 }
 
 @keyframes wiggle {
@@ -259,10 +374,12 @@ body {
 }
 
 .flexContainer img{
+  display: block;
   width: 20px;
   margin-right: 2.5px;
 }
 
 .flexContainer span {
   font-size: 20px;
+  white-space: nowrap;
 }

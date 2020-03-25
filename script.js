@@ -1,4 +1,12 @@
 window.onload = function what() {
+
+  let playerInventory = new Inventory(0,new Array(),[0,0,0],1000000000);
+  //playerInventory.parseInventory("");
+  let mainShop = new Shop("mainShop",Shop.allItemList,3,playerInventory);
+
+  //updates all the inventory scrs extra VERY IMPORTANT
+  //setInterval("update",100);
+
   var Boat = document.getElementById('Boat').style;
   var Background = document.getElementById('Background');
   var backgroundMusic = document.getElementsByClassName('backgroundMusic');
@@ -33,56 +41,94 @@ window.onload = function what() {
 
   var costTag = document.getElementsByClassName('costTag')[0];
   var costText = document.getElementById('costText');
+  var costImg = document.querySelector("body > div > div:nth-child(1) > div > img")
+
+  //adds cost tag hover functionality to all buttons of shop class
+  var hoverButtons = document.getElementsByClassName('hoverButton');
+  //sets hover events to cost tag
+  Array.from(hoverButtons).forEach((item, i) => {
+    item.addEventListener("mousemove",function showCost(event) {
+      var x = event.clientX;
+      var y = event.clientY;
+      costTag.style.opacity = 1;
+      costTag.style.transform = "translate("+(x+30)+"px,"+(y-30)+"px)";
+       if (i<3) {
+         costText.innerHTML = playerInventory.upgradeCosts[i];
+         costImg.style.display = "block";
+       } else if (!playerInventory.open) {
+         costText.innerHTML = mainShop.displayItems[i-3].cost;
+         costImg.style.display = "block";
+       } else {
+         var j = i-3;
+         console.log(j);
+         var temp = playerInventory.displayItems[j];
+         if (temp === undefined) costText.innerHTML = "Empty";
+         else {
+           costText.innerHTML = playerInventory.displayItems[j].name;
+         }
+         costImg.style.display = "none";
+       }
+    });
+    item.addEventListener("mouseout",function hideCost(event) {
+      costTag.style.opacity = 0.001;
+    });
+  });
+
 
   var hullButton = document.getElementById('hullButton');
   hullButton.addEventListener("click",upgradeHull);
-  hullButton.addEventListener("mousemove",function showCost(event) {
-  var x = event.clientX;
-  var y = event.clientY;
-  costTag.style.opacity = 1;
-  costTag.style.transform = "translate("+(x+30)+"px,"+(y-30)+"px)";
-  costText.innerHTML = hullUpgradeCost;
-  });
-  hullButton.addEventListener("mouseout",function hideCost(event) {
-    costTag.style.opacity = 0.001;
-  });
-
 
   var mastButton = document.getElementById('mastButton');
   mastButton.addEventListener("click",upgradeMast);
   mastButton.disabled = true;
-  mastButton.addEventListener("mousemove",function showCost(event) {
-  var x = event.clientX;
-  var y = event.clientY;
-  costTag.style.opacity = 1;
-  costTag.style.transform = "translate("+(x+30)+"px,"+(y-30)+"px)";
-  costText.innerHTML = mastUpgradeCost;
-  });
-  mastButton.addEventListener("mouseout",function hideCost(event) {
-    costTag.style.opacity = 0.001;
-  });
 
   var cannonButton = document.getElementById('cannonButton');
   cannonButton.addEventListener("click",upgradeCannon);
   cannonButton.disabled = true;
-  cannonButton.addEventListener("mousemove",function showCost(event) {
-  var x = event.clientX;
-  var y = event.clientY;
-  costTag.style.opacity = 1;
-  costTag.style.transform = "translate("+(x+30)+"px,"+(y-30)+"px)";
-  costText.innerHTML = cannonUpgradeCost;
-  });
-  cannonButton.addEventListener("mouseout",function hideCost(event) {
-    costTag.style.opacity = 0.001;
-  });
 
+  //handles switches of shop to inventory
+  var transitionTime = 0.6;
   var shopButton = document.getElementById('shopButton');
+  var shopItems = document.getElementsByClassName('shopItem');
+  var shopText = document.getElementsByClassName('shopText');
+  var arrows = document.getElementsByClassName('arrow');
+  var inventoryItems = document.getElementsByClassName('inventoryItem');
   var shopMenuMover = document.getElementsByClassName('shopMenuMover')[0];
   var open = false;
   shopButton.addEventListener("click", function openShop() {
+    playerInventory.open = !playerInventory.open;
+    if (playerInventory.open) {
+      shopButton.src = "UI\\ShopButton\\Regular.png";
+      setTimeout(function() {
+        toggleClass(shopItems, false);
+        toggleClass(inventoryItems, true);
+        toggleClass(arrows, true);
+        toggleClass(shopText, false);
+      },transitionTime*1000);
+
+    } else {
+      shopButton.src = "UI\\ShopButton\\RegularInvent.png";
+      setTimeout(function() {
+        toggleClass(shopItems, true);
+        toggleClass(inventoryItems, false);
+        toggleClass(arrows, false);
+        toggleClass(shopText, true);
+      }, transitionTime*1000);
+    }
     shopMenuMover.classList.toggle("move",!open);
-    open = !open;
+    setTimeout(function() {shopMenuMover.classList.toggle("move",open);},transitionTime*1000);
   });
+
+  function toggleClass(classArray, toggle) {
+    Array.from(classArray).forEach((item, i) => {
+      if(toggle) {
+        item.style.display = "block";
+      } else {
+        item.style.display = "none";
+      }
+    });
+
+  }
 
   var currentFlag = 0;
   var flag = document.getElementsByClassName('Flag')[currentFlag];
@@ -160,30 +206,38 @@ window.onload = function what() {
       clearInterval(riseId);
       j = 0;
     } else {
-      Boat.top = 111 - j - riseHeight*(currentHull-2) + "px";
+      Boat.top = 111 - j - riseHeight*(playerInventory.upgrades[0]-2) + "px";
     }
   }
 
   //upgrade functions
 
-  var currentHull = 1;
-  var currentMast = 1;
-  var currentCannon = 1;
-  var playerCoin = 1000;
+  function playShopSFX() {
+    upgradeSFX.currentTime = 0;
+    upgradeSFX.play();
+  }
 
-  var hullUpgradeCost = 50;
-  var mastUpgradeCost = 100;
-  var cannonUpgradeCost = 175;
+  function playUpgradeSFX() {
+    upgradeSFX.currentTime = 0;
+    upgradeSFX.play();
+  }
 
   function upgradeHull() {
-    if (playerCoin > hullUpgradeCost) {
-      upgradeSFX.currentTime = 0;
-      upgradeSFX.play();
-      hull[currentHull-1].style.opacity = "0";
-      hull[++currentHull-1].style.opacity = "1";
+    if (playerInventory.money > playerInventory.upgradeCosts[0]) {
+      //plays buying sound effect
+      playUpgradeSFX();
+
+      //switches hull graphic to the next one in line
+      hull[playerInventory.upgrades[0]].style.opacity = "0";
+      hull[playerInventory.incremUpgrade(0)].style.opacity = "1";
+
+      //enables purchase of other attributes
       mastButton.disabled = false;
       cannonButton.disabled = false;
-      hullUpgradeCost += 100;
+
+      mainShop.buyUpgrade(0);
+
+      //raises the boat up a little so the bigger hull can be accomadated for
       j = 0;
       riseHeight = 20;
       riseId = setInterval(riseAnim,100);
@@ -192,15 +246,19 @@ window.onload = function what() {
   }
 
   function upgradeMast() {
-    if (playerCoin > mastUpgradeCost && currentHull>currentMast) {
-      upgradeSFX.currentTime = 0;
-      upgradeSFX.play();
-      mast[currentMast-1].style.opacity = "0";
-      mast[++currentMast-1].style.opacity = "1";
+    if (playerInventory.money > playerInventory.upgradeCosts[1]) {
+      //plays upgrade SFX
+      playUpgradeSFX();
+
+      //advances to next mast
+      mast[playerInventory.upgrades[1]].style.opacity = "0";
+      mast[playerInventory.incremUpgrade(1)].style.opacity = "1";
       mastButton.disabled = true;
-      mastUpgradeCost += 75;
+      mainShop.buyUpgrade(1);
       costTag.style.opacity = 0.001;
-      if (currentMast == 2) {
+
+      //Changes flag's position in the game because the mast position changes
+      if (playerInventory.upgrades[1] == 2) {
         flag.style.top = "7px";
         flag.style.left = "210px";
       }
@@ -208,15 +266,81 @@ window.onload = function what() {
   }
 
   function upgradeCannon() {
-    if (playerCoin > cannonUpgradeCost && currentHull>currentCannon) {
-      upgradeSFX.currentTime = 0;
-      upgradeSFX.play();
-      cannon[currentCannon-1].style.opacity = "0";
-      cannon[++currentCannon-1].style.opacity = "1";
+    if (playerInventory.money > playerInventory.upgradeCosts[2]) {
+      playUpgradeSFX();
+
+      cannon[playerInventory.upgrades[2]].style.opacity = "0";
+      cannon[playerInventory.incremUpgrade(2)].style.opacity = "1";
       cannonButton.disabled = true;
-      cannonUpgradeCost += 50;
+
+      mainShop.buyUpgrade(2);
       costTag.style.opacity = 0.001;
     }
   }
+
+
+  //shop functions begin here
+
+  //sets all the images for the items
+  flagImage = document.getElementsByClassName('rightShopItem')[0];
+  flagImage.style.src = mainShop.displayItems[1].imageSrc;
+  figureheadImage = document.getElementsByClassName('bottomShopItem')[0];
+  figureheadImage.style.src = mainShop.displayItems[2].imageSrc;
+
+  //on hover play sample of audio
+  soundtrackImage = document.getElementById('leftButton');
+  image = document.getElementsByClassName('leftShopItem')[0];
+  var soundtrackAudioSource = document.getElementById(mainShop.displayItems[0].getName());
+
+  console.log(soundtrackAudioSource);
+  soundtrackImage.addEventListener('mouseenter', function () {
+    backgroundMusic[currentMusic].pause();
+    soundtrackAudioSource.play();
+    soundtrackAudioSource.volume = 0.1;
+    image.src = "UI\\ShopMenu\\soundtrackButton(2).png";
+    setTimeout(function() {
+      soundtrackAudioSource.pause();
+      soundtrackAudioSource.currentTime = 0;
+      backgroundMusic[currentMusic].play();
+      image.src = "UI\\ShopMenu\\soundtrackButton.png";
+    }, 6000);
+  });
+  soundtrackImage.addEventListener('mouseleave', function () {
+    soundtrackAudioSource.pause();
+    soundtrackAudioSource.currentTime = 0;
+    backgroundMusic[currentMusic].play();
+    image.src = "UI\\ShopMenu\\soundtrackButton.png";
+  });
+
+  //Buying functions
+  shopButtons = document.getElementsByClassName("shopButton");
+  Array.from(shopButtons).forEach((item, i) => {
+    item.addEventListener('click', function() {
+      console.log("time");
+      mainShop.buyItem(i);
+      playShopSFX();
+
+
+    });
+  });
+
+
+
+  //inventory functions begin here
+  var flags = playerInventory.flags[0];
+  var figureheads = playerInventory.figureheads[0];
+  if (flags === undefined) {
+    inventoryItems[1].src = "noItem.png";
+  } else {
+    inventoryItems[1].src = flags.imageSrc;
+  }
+  if (figureheads === undefined) {
+    inventoryItems[2].src = "noItem.png";
+  } else {
+    inventoryItems[2].src = figureheads.imageSrc;
+  }
+
+
+
 
 }

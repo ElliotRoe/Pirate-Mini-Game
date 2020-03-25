@@ -11,25 +11,25 @@
   <audio src="Audio\Music Loops\Casual Game Music 01.wav" type="audio/wav" class="backgroundMusic" loop>
     You need to update your browser!
   </audio>
-  <audio src="Audio\Music Loops\Casual Game Music 05.wav" type="audio/wav" class="backgroundMusic" loop>
+  <audio src="Audio\Music Loops\Casual Game Music 05.wav" type="audio/wav" class="backgroundMusic" id="Theme 2" loop>
     You need to update your browser!
   </audio>
-  <audio src="Audio\Music Loops\Casual Game Music 09.wav" type="audio/wav" class="backgroundMusic" loop>
+  <audio src="Audio\Music Loops\Casual Game Music 09.wav" type="audio/wav" class="backgroundMusic" id="Peaceful 1" loop>
     You need to update your browser!
   </audio>
-  <audio src="Audio\Music Loops\Casual Game Music 11.wav" type="audio/wav" class="backgroundMusic" loop>
+  <audio src="Audio\Music Loops\Casual Game Music 11.wav" type="audio/wav" class="backgroundMusic" id="Peaceful 2" loop>
     You need to update your browser!
   </audio>
-  <audio src="Audio\Music Loops\Casual Game Music 14.wav" type="audio/wav" class="backgroundMusic" loop>
+  <audio src="Audio\Music Loops\Casual Game Music 14.wav" type="audio/wav" class="backgroundMusic" id="Halloween 1" loop>
     You need to update your browser!
   </audio>
-  <audio src="Audio\Music Loops\Casual Game Music 16 - Halloween.wav" type="audio/wav" class="backgroundMusic" loop>
+  <audio src="Audio\Music Loops\Casual Game Music 16 - Halloween.wav" type="audio/wav" class="backgroundMusic" id="Halloween 2" loop>
     You need to update your browser!
   </audio>
-  <audio src="Audio\Music Loops\Casual Game Music 19.wav" type="audio/wav" class="backgroundMusic" loop>
+  <audio src="Audio\Music Loops\Casual Game Music 19.wav" type="audio/wav" class="backgroundMusic" id="Hawaiian" loop>
     You need to update your browser!
   </audio>
-  <audio src="Audio\Music Loops\Casual Game Music 20.wav" type="audio/wav" class="backgroundMusic" loop>
+  <audio src="Audio\Music Loops\Casual Game Music 20.wav" type="audio/wav" class="backgroundMusic" id="Excited" loop>
     You need to update your browser!
   </audio>
   <audio src="Audio\Ambient\Amb Beach 2.wav" type="audio/wav" class="ambientMusic" loop>
@@ -38,6 +38,8 @@
   <audio src="Audio\SFX\Cash Register.wav" type="audio/wav" class="SFX" id="upgradeSFX">
     You need to update your browser!
   </audio>
+  <script src="shop.js" charset="utf-8"></script>
+  <script src="inventory.js" charset="utf-8"></script>
   <script src="script.js"></script>
   <div class="wrapper">
     <div class="costTag">
@@ -47,7 +49,7 @@
     </div>
     <div class="costTag" id="timeTag">
       <div class="flexContainer">
-        <img src="Coin.png" alt=""><span id="costText">100</span>
+        <img src="Coin.png" id="costImg" alt=""><span id="costText">100</span>
       </div>
       <div class="flexContainer">
         <img src="Coin.png" alt=""><span id="timeText">100</span>
@@ -55,24 +57,48 @@
     </div>
     <div class="menuWrapper">
       <img src="UI\UpgradeMenuBackground.png" alt="" id="UpgradeMenu">
-      <input type="image" id="hullButton" class="upgradeButton" src="UI\HullButton\Regular.png"/>
-      <input type="image" id="mastButton" class="upgradeButton" src="UI\MastButton\Regular.png"/>
-      <input type="image" id="cannonButton" class="upgradeButton" src="UI\CannonButton\Regular.png"/>
-      <input type="image" id="shopButton" class="upgradeButton" src="UI\ShopButton\Regular.png"/>
+      <input type="image" id="hullButton" class="upgradeButton hoverButton wiggleButton" src="UI\HullButton\Regular.png"/>
+      <input type="image" id="mastButton" class="upgradeButton hoverButton wiggleButton" src="UI\MastButton\Regular.png"/>
+      <input type="image" id="cannonButton" class="upgradeButton hoverButton wiggleButton" src="UI\CannonButton\Regular.png"/>
+      <input type="image" id="shopButton" class="wiggleButton" src="UI\ShopButton\RegularInvent.png"/>
       <div class="shopMenuWrapper">
         <div class="shopMenuMover">
           <img src="UI\ShopMenu\ShopMenuBackground.png" alt="">
-          <input type="image" id="leftButton" class="upgradeButton" src="UI\ShopMenu\LeftButton.png">
-          <input type="image" id="rightButton" class="upgradeButton" src="UI\ShopMenu\RightButton.png">
-          <div id="bottomButton" class="upgradeButton">
-            <input type="image" src="UI\ShopMenu\BottomButton.png">
-            <img src="FigureIcon(1).png" alt="" id="bottomShopItem">
+          <div id="leftButtonWrapper">
+            <input type="image" src="UI\LeftSkipArrow.png" class="arrow leftArrows" id="lleftArrow">
+            <input type="image" src="UI\RightSkipArrow.png" class="arrow leftArrows" id="lrightArrow">
+            <div id="leftButton" class="hoverButton wiggleButton">
+              <input type="image" class="shopButton" src="UI\ShopMenu\LeftButton.png">
+              <img src="UI\ShopMenu\soundtrackButton.png" class="shopItem leftShopItem" alt="">
+              <img src="UI\ShopMenu\soundtrackButton(2).png" class="inventoryItem leftShopItem" alt="">
+              <img src="UI\ShopMenu\SoundtrackText.png" alt="" class="shopText" id="soundtrackText">
+            </div>
+          </div>
+          <div id="rightButtonWrapper">
+            <input type="image" src="UI\LeftSkipArrow.png" class="arrow rightArrows" id="rleftArrow">
+            <input type="image" src="UI\RightSkipArrow.png" class="arrow rightArrows" id="rrightArrow">
+            <div id="rightButton" class="hoverButton wiggleButton">
+              <input type="image" class="shopButton" src="UI\ShopMenu\RightButton.png">
+              <img src="Flag(1).png" alt="" class="shopItem rightShopItem">
+              <img src="Flag(1).png" alt="" class="inventoryItem rightShopItem">
+              <img src="UI\ShopMenu\FlagText.png" alt="" class="shopText" id="flagText">
+            </div>
+          </div>
+          <div id="bottomButtonWrapper">
+            <input type="image" src="UI\LeftSkipArrow.png" class="arrow bottomArrows" id="bleftArrow">
+            <input type="image" src="UI\RightSkipArrow.png" class="arrow bottomArrows" id="brightArrow">
+            <div id="bottomButton" class="hoverButton wiggleButton">
+              <input type="image" class="shopButton" src="UI\ShopMenu\BottomButton.png">
+              <img src="FigureIcon(1).png" alt="" class="shopItem bottomShopItem">
+              <img src="FigureIcon(1).png" alt="" class="inventoryItem bottomShopItem">
+              <img src="UI\ShopMenu\FigureheadText.png" alt="" class="shopText" id="figureHeadText">
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div id="startScreen">
-      <button type="button" name="playButton" id="playButton"><h3>Play!</h3></button>
+      <input type="image" src="UI\PlayButton.png" id="playButton">
     </div>
     <div id="Boat">
       <img src="Mast(1).png" alt="" class="Mast mainBoat">

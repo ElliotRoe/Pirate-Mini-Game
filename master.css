@@ -2,6 +2,12 @@ body {
   overflow: hidden; /* Hide scrollbars */
 }
 
+.wrapper {
+  height: 630px;
+  width: 1102px;
+  clip-path: inset(0 0 0 0);
+}
+
 #startScreen {
   position: absolute;
   top: 0px;

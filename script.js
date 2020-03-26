@@ -4,8 +4,8 @@ window.onload = function what() {
   //playerInventory.parseInventory("");
   let mainShop = new Shop("mainShop", Shop.allItemList.slice(1), 3, playerInventory);
 
-  //updates all the inventory scrs extra VERY IMPORTANT
-  //setInterval("update",100);
+  //updates all the disabled buttons VERY IMPORTANT
+  setInterval(update,100);
 
   var Boat = document.getElementById('Boat').style;
   var Background = document.getElementById('Background');
@@ -55,11 +55,18 @@ window.onload = function what() {
         costText.innerHTML = playerInventory.upgradeCosts[i];
         costImg.style.display = "block";
       } else if (!playerInventory.open) {
-        costText.innerHTML = mainShop.displayItems[i - 3].cost;
-        costImg.style.display = "block";
+        if (!mainShop.displayItems[i-3].disabled) {
+          costText.innerHTML = mainShop.displayItems[i - 3].cost;
+          costImg.style.display = "block";
+        } else {
+          costText.innerHTML = "Sold";
+          if (playerInventory.upgrades[0]<3 && (i-3)==2) {
+            costText.innerHTML = "Must have lvl. 4 hull to purchase";
+          }
+          costImg.style.display = "none";
+        }
       } else {
         var j = i - 3;
-        console.log(j);
         var temp = playerInventory.displayItems[j];
         if (temp === undefined) costText.innerHTML = "Empty";
         else {
@@ -315,26 +322,30 @@ window.onload = function what() {
   console.log(soundtrackAudioSource);
   soundtrackImage.addEventListener('mouseenter', function() {
     if (!playerInventory.open) {
-      currentMusic.pause();
-      soundtrackAudioSource.play();
-      soundtrackAudioSource.volume = 0.1;
-      image.src = "UI\\ShopMenu\\soundtrackButton(2).png";
-      setTimeout(function() {
-        if (!mainShop.displayItems[0].disabled) {
-          soundtrackAudioSource.pause();
-          soundtrackAudioSource.currentTime = 0;
-          currentMusic.play();
-          image.src = "UI\\ShopMenu\\soundtrackButton.png";
-        }
-      }, 6000);
+      if (!mainShop.displayItems[0].disabled) {
+        currentMusic.pause();
+        soundtrackAudioSource.play();
+        soundtrackAudioSource.volume = 0.1;
+        image.src = "UI\\ShopMenu\\soundtrackButton(2).png";
+        setTimeout(function() {
+          if (!mainShop.displayItems[0].disabled) {
+            soundtrackAudioSource.pause();
+            soundtrackAudioSource.currentTime = 0;
+            currentMusic.play();
+            image.src = "UI\\ShopMenu\\soundtrackButton.png";
+          }
+        }, 6000);
+      }
     }
   });
   soundtrackImage.addEventListener('mouseleave', function() {
     if (!playerInventory.open) {
-      soundtrackAudioSource.pause();
-      soundtrackAudioSource.currentTime = 0;
-      currentMusic.play();
-      image.src = "UI\\ShopMenu\\soundtrackButton.png";
+      if (!mainShop.displayItems[0].disabled) {
+        soundtrackAudioSource.pause();
+        soundtrackAudioSource.currentTime = 0;
+        currentMusic.play();
+        image.src = "UI\\ShopMenu\\soundtrackButton.png";
+      }
     }
   });
 
@@ -343,15 +354,18 @@ window.onload = function what() {
   Array.from(shopButtons).forEach((item, i) => {
     item.addEventListener('click', function() {
       if (!playerInventory.open) {
-        playShopSFX();
-        //if music bought then it sets it as the current background music
-        if (i == 0) {
-          currentMusic.pause();
-          currentMusic = document.getElementById(mainShop.displayItems[0].getName());
-          currentMusic.play();
+        if (!mainShop.displayItems[i].disabled) {
+          playShopSFX();
+          //if music bought then it sets it as the current background music
+          if (i == 0) {
+            currentMusic.pause();
+            currentMusic = document.getElementById(mainShop.displayItems[0].getName());
+            currentMusic.play();
+          }
+          inventoryItems[i].src = mainShop.buyItem(i).imageSrc;
         }
-        inventoryItems[i].src = mainShop.buyItem(i).imageSrc;
       } else {
+        //inventory display functions
         if (inventoryItems[i].src=="file:///C:/Users/Elliot/github/pirate-minigame/noItem.png");
         else {
         inventoryItems[i].src = playerInventory.nextItem(i).imageSrc;
@@ -368,6 +382,21 @@ window.onload = function what() {
     });
   });
 
+  //disable updater
+  var shopButtonWrappers = document.getElementsByClassName('shopButtonWrapper');
+  function update() {
+    Array.from(shopButtonWrappers).forEach((item, i) => {
+      if (!playerInventory.open)
+        item.classList.toggle("disabled", mainShop.displayItems[i].disabled);
+      else
+        setTimeout (function () {
+          item.classList.toggle("disabled",false);
+        }, transitionTime*1000);
+
+
+    });
+
+  }
 
 
   //inventory functions begin here

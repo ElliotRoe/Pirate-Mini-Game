@@ -29,18 +29,18 @@ body {
 #Boat{
   position: absolute;
   z-index: 1;
-  width: 575px;
-  height: 372px;
+  width: 800px;
+  height: 562px;
   transform: translateY(0px);
   transform: rotate(00deg);
-  left: 483px;
-  top: 111px;
+  left: 340px;
+  top: 60px;
 }
 
 #Boat .mainBoat {
   position: absolute;
-  width: 575px;
-  height: 372px;
+  width: 100%;
+  height: 100%;
 }
 
 #Boat .mainBoat:nth-child(n+4) {
@@ -74,7 +74,7 @@ body {
   position: absolute;
   display: flex;
   width: 1102px;
-  top: 383px;
+  top: 447px;
   left: -275px;
   z-index: 3;
 }
@@ -87,8 +87,8 @@ body {
 .ocean {
   position: absolute;
   width: 1102px;
-  height: 210px;
-  top: 420px;
+  height: 180px;
+  top: 480px;
   z-index: 2;
   background-color: #12499e;
   background-image: linear-gradient(#12499e 50%, #15376b);
@@ -217,11 +217,23 @@ body {
   height: 100%;
 }
 
+.shopButtonWrapper.disabled {
+  filter: brightness(75%) !important;
+  filter: grayscale() !important;
+  transform-origin: center;
+  transform: scale(0.9) !important;
+  animation: none !important;
+}
+
 .inventoryItem {
     display: none;
 }
 
 .item {
+  pointer-events: none;
+}
+
+.shopText {
   pointer-events: none;
 }
 

@@ -28,6 +28,11 @@ class Shop {
   }
 
   updateDisplayItems() {
+    if(this.connectedInven.upgrades[0]<3) {
+      this.displayItems[2].disabled = true;
+    } else {
+      this.displayItems[2].disabled = false;
+    }
     this.displayItems.forEach((item, i) => {
       if (item.isExpired()) {
         this.displayItems[i] = this.getNewItem();

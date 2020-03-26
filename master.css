@@ -47,12 +47,37 @@ body {
   opacity: 0.001;
 }
 
+.figureHead {
+  position: absolute;
+  height: 200px;
+  top: 255px;
+  left: 43px;
+  z-index: -1;
+  transform-origin: center;
+  transform: rotate(8deg);
+}
+
 .Flag {
   position: absolute;
-  height: 34px;
-  top: 10px;
-  left: 267px;
+  height: 44px;
+  top: 98px;
+  left: 410px;
+  z-index: -1;
 
+}
+
+.Flag.position1 {
+  left: 351px !important;
+}
+
+.Flag.position2 {
+  top: 69px !important;
+  left: 382px !important;
+}
+
+.Flag.position3 {
+  top: 0px !important;
+  left: 380px !important;
 }
 
 #Background {
@@ -249,20 +274,20 @@ body {
 .rightShopItem {
   position: absolute;
   height: 55px;
-  width: 101.2px !important;
-  top: 28px;
-  left: 20px;
+  width: 81px !important;
+  top: 25px;
+  left: 25px;
   z-index: 300 !important;
 }
 
 .bottomShopItem {
   position: absolute;
-  top: 27px;
+  top: 10px;
   left: 43px;
   height: 100px;
-  width: 95.41px !important;
+  width: 79px !important;
   z-index: 300 !important;
-  clip-path: inset(0 0 50% 0);
+  clip-path: inset(0 0 35% 0);
 }
 
 #rightButtonWrapper {

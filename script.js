@@ -1,8 +1,8 @@
 window.onload = function what() {
 
-  let playerInventory = new Inventory(0, new Array(), [0, 0, 0], 1000000000);
+  let playerInventory = new Inventory(0, [Shop.allItemList[1]], [0, 0, 0], 1000000000);
   //playerInventory.parseInventory("");
-  let mainShop = new Shop("mainShop", Shop.allItemList.slice(1), 3, playerInventory);
+  let mainShop = new Shop("mainShop", Shop.allItemList.slice(2), 3, playerInventory);
 
   //updates all the disabled buttons VERY IMPORTANT
   setInterval(update,100);
@@ -138,9 +138,6 @@ window.onload = function what() {
 
   }
 
-  var currentFlag = 0;
-  var flag = document.getElementsByClassName('Flag')[currentFlag];
-
   console.log("Width: " + Background.offsetWidth);
 
   var amp = 12 / 2;
@@ -219,7 +216,7 @@ window.onload = function what() {
       clearInterval(riseId);
       j = 0;
     } else {
-      Boat.top = 111 - j - riseHeight * (playerInventory.upgrades[0] - 2) + "px";
+      Boat.top = 60 - j - riseHeight * (playerInventory.upgrades[0] - 1) + "px";
     }
   }
 
@@ -267,10 +264,13 @@ window.onload = function what() {
       //raises the boat up a little so the bigger hull can be accomadated for
       j = 0;
       riseHeight = 20;
-      riseId = setInterval(riseAnim, 100);
+      riseId = setInterval(riseAnim, 40);
       costTag.style.opacity = 0.001;
     }
   }
+
+  flag = document.getElementById('mainFlag');
+  figurehead = document.getElementById('mainFigureHead');
 
   function upgradeMast() {
     if (playerInventory.money > playerInventory.upgradeCosts[1]) {
@@ -285,10 +285,8 @@ window.onload = function what() {
       costTag.style.opacity = 0.001;
 
       //Changes flag's position in the game because the mast position changes
-      if (playerInventory.upgrades[1] == 2) {
-        flag.style.top = "7px";
-        flag.style.left = "210px";
-      }
+      console.log("position" + playerInventory.upgrades[1]);
+      flag.classList.toggle("position" + playerInventory.upgrades[1],true);
     }
   }
 
@@ -310,9 +308,10 @@ window.onload = function what() {
 
   //sets all the images for the items
   flagImage = document.getElementsByClassName('rightShopItem')[0];
-  flagImage.style.src = mainShop.displayItems[1].imageSrc;
+  flagImage.src = mainShop.displayItems[1].imageSrc;
+
   figureheadImage = document.getElementsByClassName('bottomShopItem')[0];
-  figureheadImage.style.src = mainShop.displayItems[2].imageSrc;
+  figureheadImage.src = mainShop.displayItems[2].imageSrc;
 
   //on hover play sample of audio
   soundtrackImage = document.getElementById('leftButton');
@@ -363,6 +362,9 @@ window.onload = function what() {
             currentMusic.play();
           }
           inventoryItems[i].src = mainShop.buyItem(i).imageSrc;
+          if (i==1) {
+            flag.src = playerInventory.displayItems[1].imageSrc;
+          }
         }
       } else {
         //inventory display functions
@@ -384,7 +386,16 @@ window.onload = function what() {
 
   //disable updater
   var shopButtonWrappers = document.getElementsByClassName('shopButtonWrapper');
+  var upgradeButtons = document.getElementsByClassName('upgradeButton');
+
   function update() {
+    //sets flag source
+    flag.src = playerInventory.displayItems[1].imageSrc;
+    //sets figurehead source
+    if (playerInventory.displayItems[2] === undefined);
+    else
+    figurehead.src = playerInventory.displayItems[2].imageSrc;
+
     Array.from(shopButtonWrappers).forEach((item, i) => {
       if (!playerInventory.open)
         item.classList.toggle("disabled", mainShop.displayItems[i].disabled);
@@ -395,6 +406,10 @@ window.onload = function what() {
 
 
     });
+    mastButton.disabled = !(playerInventory.upgrades[1]<playerInventory.upgrades[0]);
+    cannonButton.disabled = true;
+    hullButton.disabled = playerInventory.upgrades[0]>=3;
+
 
   }
 

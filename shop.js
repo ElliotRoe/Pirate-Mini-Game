@@ -8,6 +8,8 @@ class Shop {
     this.alreadyDisplayed = new Array();
     this.boughtItems = new Array();
 
+    this.executed = false;
+
     //index 0 is left (Soundtrack); 1 is right (Flag); 2 is bottom (Figurehead);
     this.displayItems = this.setInitalDisplayItems(this.numberOfItemsDisplayed);
     this.connectedInven = inventory;
@@ -28,11 +30,13 @@ class Shop {
   }
 
   updateDisplayItems() {
-    if(this.connectedInven.upgrades[0]<3) {
-      this.displayItems[2].disabled = true;
-    } else {
-      this.displayItems[2].disabled = false;
-    }
+    if (!this.executed)
+      if(this.connectedInven.upgrades[0]<3) {
+        this.displayItems[2].disabled = true;
+      } else {
+        this.displayItems[2].disabled = false;
+        this.executed = true;
+      }
     this.displayItems.forEach((item, i) => {
       if (item.isExpired()) {
         this.displayItems[i] = this.getNewItem();
@@ -56,7 +60,6 @@ class Shop {
 
   buyUpgrade(upgradeIndex) {
     //0 is hull; 1 is mast; 2 is cannon;
-    this.connectedInven.upgrades[upgradeIndex]++;
     this.connectedInven.money -= this.connectedInven.upgradeCosts[upgradeIndex];
   }
 
@@ -145,7 +148,10 @@ class Item {
 }
 
 Shop.allItemList = [
+  //default items
   new Item("Theme 1",[24,0,0], 0,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 01.wav"),
+  new Item("Bexley Coding Flag",[24,0,0],150,"Flag","Flag(0).png"),
+  //sold items
   new Item("Theme 2",[24,0,0],75,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 05.wav"),
   new Item("Peaceful 1",[24,0,0],100,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 09.wav"),
   new Item("Peaceful 2",[24,0,0],100,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 11.wav"),
@@ -153,6 +159,11 @@ Shop.allItemList = [
   new Item("Halloween 2",[24,0,0],150,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 16 - Halloween.wav"),
   new Item("Hawaiian",[24,0,0],150,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 19.wav"),
   new Item("Excited",[24,0,0],150,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 20.wav"),
-  new Item("Bexley Coding Flag",[24,0,0],150,"Flag","Flag(1).png"),
-  new Item("Wolf Mast Head",[24,0,0],150,"Mast","FigureIcon(1).png"),
+  new Item("Pirate Flag",[24,0,0],150,"Flag","Flag(1).png"),
+  new Item("Sun Flag",[24,0,0],150,"Flag","Flag(2).png"),
+  new Item("Weird Flag",[24,0,0],300,"Flag","Flag(3).png"),
+  new Item("Swirl Flag",[24,0,0],150,"Flag","Flag(4).png"),
+  new Item("Stripe Flag",[24,0,0],150,"Flag","Flag(5).png"),
+  new Item("Wolf Mast Head",[24,0,0],300,"Mast","FigureHead(1).png"),
+  new Item("Unicorn Mast Head",[24,0,0],400,"Mast","FigureHead(2).png")
 ];

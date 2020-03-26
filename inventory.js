@@ -32,13 +32,13 @@ class Inventory {
     this.items.forEach((item, i) => {
       switch (item.type.charAt(0)) {
         case 'S':
-          soundtracks.unshift(item);
+          this.soundtracks.unshift(item);
           break;
         case 'F':
-          flags.unshift(item);
+          this.flags.unshift(item);
           break;
         case 'M':
-          figureheads.unshift(item);
+          this.figureheads.unshift(item);
           break;
         default:
 

@@ -2,6 +2,8 @@ class Inventory {
   constructor(playerID, items, upgrades, money, stringToParse) {
     this.playerID = playerID;
     this.items = items;
+    this.displayIndex = [0,0,0];
+
     //upgrade array notation: [hull level, sail level, cannon level]
     this.upgrades = upgrades;
     this.flags = new Array();
@@ -16,7 +18,7 @@ class Inventory {
     this.open = false;
 
     //[soundtracks,flags,figureheads]
-    this.displayItems = [this.soundtracks[0],this.flags[0],this.figureheads[0]];
+    this.displayItems = [this.soundtracks[this.displayIndex[0]],this.flags[this.displayIndex[1]],this.figureheads[this.displayIndex[2]]];
 
     Inventory.upgradeIncr = [100,75,50];
     this.upgradeCosts = [
@@ -30,13 +32,13 @@ class Inventory {
     this.items.forEach((item, i) => {
       switch (item.type.charAt(0)) {
         case 'S':
-          soundtracks.push(item);
+          soundtracks.unshift(item);
           break;
         case 'F':
-          flags.push(item);
+          flags.unshift(item);
           break;
         case 'M':
-          figureheads.push(item);
+          figureheads.unshift(item);
           break;
         default:
 
@@ -61,18 +63,47 @@ class Inventory {
     console.log("items added");
     switch (item.type.charAt(0)) {
       case 'S':
-        this.soundtracks.push(item);
+        this.soundtracks.unshift(item);
+        this.displayItems[0] = item;
         break;
       case 'F':
-        this.flags.push(item);
+        this.flags.unshift(item);
+        this.displayItems[1] = item;
         break;
       case 'M':
-        this.figureheads.push(item);
+        this.figureheads.unshift(item);
+        this.displayItems[2] = item;
         break;
       default:
 
     }
 
+  }
+
+//cycles to the next display item
+  nextItem(itemIndex) {
+    this.displayItems[itemIndex] = this.getArrayFromIntType(itemIndex)[++this.displayIndex[itemIndex]];
+    if (this.displayItems[itemIndex]===undefined) {
+      this.displayItems[itemIndex] = this.getArrayFromIntType(itemIndex)[0];
+      this.displayIndex[itemIndex] = 0;
+    }
+    return this.displayItems[itemIndex];
+  }
+
+  getArrayFromIntType(index) {
+    switch (index) {
+      case 0:
+        return this.soundtracks;
+        break;
+      case 1:
+        return this.flags;
+        break;
+      case 2:
+        return this.figureheads;
+        break;
+      default:
+
+    }
   }
 
   findItem(itemName) {
@@ -105,11 +136,20 @@ class Inventory {
         temp = temp.substring(commaIndex+1,temp.length);
       } else break;
     }
-    var periodIndex = temp.indexOf('.');
+    var periodIndex;
     this.upgrades.forEach((item, i) => {
+      periodIndex = temp.indexOf('.');
       this.upgrades[i] = temp.substring(0,periodIndex);
       temp = temp.substring(periodIndex+1,temp.length);
     });
+
+    var poundIndex;
+    this.displayIndex.forEach((item, i) => {
+      poundIndex = temp.indexOf('#');
+      this.displayIndex[i] = temp.substring(0,poundIndex);
+      temp = temp.substring(poundIndex+1,temp.length);
+    });
+
 
   }
 
@@ -119,6 +159,7 @@ class Inventory {
       temp += item.getName() + ",";
     });
     temp += this.upgrades[0] +"." + this.upgrades[1] + "." + this.upgrades[2] + ".";
+    temp += this.displayIndex[0] + "#" + this.displayIndex[1] + "#" + this.displayIndex[2] + "#";
     return temp;
   }
 }

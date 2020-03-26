@@ -1,8 +1,8 @@
 window.onload = function what() {
 
-  let playerInventory = new Inventory(0,new Array(),[0,0,0],1000000000);
+  let playerInventory = new Inventory(0, new Array(), [0, 0, 0], 1000000000);
   //playerInventory.parseInventory("");
-  let mainShop = new Shop("mainShop",Shop.allItemList,3,playerInventory);
+  let mainShop = new Shop("mainShop", Shop.allItemList.slice(1), 3, playerInventory);
 
   //updates all the inventory scrs extra VERY IMPORTANT
   //setInterval("update",100);
@@ -11,14 +11,13 @@ window.onload = function what() {
   var Background = document.getElementById('Background');
   var backgroundMusic = document.getElementsByClassName('backgroundMusic');
   var ambientMusic = document.getElementsByClassName('ambientMusic');
-  var upgradeSFX = document.getElementById('upgradeSFX');
   var playButton = document.getElementById('playButton');
   var startScreen = document.getElementById('startScreen');
-  var currentMusic = 0;
-  playButton.onclick = function(){
+  var currentMusic = backgroundMusic[0];
+  playButton.onclick = function() {
     startScreen.classList.add("slideAnimation");
-    backgroundMusic[currentMusic].volume = 0.1;
-    backgroundMusic[currentMusic].play();
+    currentMusic.volume = 0.1;
+    currentMusic.play();
     ambientMusic[0].volume = 0.1;
     ambientMusic[0].play();
 
@@ -47,43 +46,43 @@ window.onload = function what() {
   var hoverButtons = document.getElementsByClassName('hoverButton');
   //sets hover events to cost tag
   Array.from(hoverButtons).forEach((item, i) => {
-    item.addEventListener("mousemove",function showCost(event) {
+    item.addEventListener("mousemove", function showCost(event) {
       var x = event.clientX;
       var y = event.clientY;
       costTag.style.opacity = 1;
-      costTag.style.transform = "translate("+(x+30)+"px,"+(y-30)+"px)";
-       if (i<3) {
-         costText.innerHTML = playerInventory.upgradeCosts[i];
-         costImg.style.display = "block";
-       } else if (!playerInventory.open) {
-         costText.innerHTML = mainShop.displayItems[i-3].cost;
-         costImg.style.display = "block";
-       } else {
-         var j = i-3;
-         console.log(j);
-         var temp = playerInventory.displayItems[j];
-         if (temp === undefined) costText.innerHTML = "Empty";
-         else {
-           costText.innerHTML = playerInventory.displayItems[j].name;
-         }
-         costImg.style.display = "none";
-       }
+      costTag.style.transform = "translate(" + (x + 30) + "px," + (y - 30) + "px)";
+      if (i < 3) {
+        costText.innerHTML = playerInventory.upgradeCosts[i];
+        costImg.style.display = "block";
+      } else if (!playerInventory.open) {
+        costText.innerHTML = mainShop.displayItems[i - 3].cost;
+        costImg.style.display = "block";
+      } else {
+        var j = i - 3;
+        console.log(j);
+        var temp = playerInventory.displayItems[j];
+        if (temp === undefined) costText.innerHTML = "Empty";
+        else {
+          costText.innerHTML = playerInventory.displayItems[j].name;
+        }
+        costImg.style.display = "none";
+      }
     });
-    item.addEventListener("mouseout",function hideCost(event) {
+    item.addEventListener("mouseout", function hideCost(event) {
       costTag.style.opacity = 0.001;
     });
   });
 
 
   var hullButton = document.getElementById('hullButton');
-  hullButton.addEventListener("click",upgradeHull);
+  hullButton.addEventListener("click", upgradeHull);
 
   var mastButton = document.getElementById('mastButton');
-  mastButton.addEventListener("click",upgradeMast);
+  mastButton.addEventListener("click", upgradeMast);
   mastButton.disabled = true;
 
   var cannonButton = document.getElementById('cannonButton');
-  cannonButton.addEventListener("click",upgradeCannon);
+  cannonButton.addEventListener("click", upgradeCannon);
   cannonButton.disabled = true;
 
   //handles switches of shop to inventory
@@ -102,26 +101,28 @@ window.onload = function what() {
       setTimeout(function() {
         toggleClass(shopItems, false);
         toggleClass(inventoryItems, true);
-        toggleClass(arrows, true);
+        //toggleClass(arrows, true);
         toggleClass(shopText, false);
-      },transitionTime*1000);
+      }, transitionTime * 1000);
 
     } else {
       shopButton.src = "UI\\ShopButton\\RegularInvent.png";
       setTimeout(function() {
         toggleClass(shopItems, true);
         toggleClass(inventoryItems, false);
-        toggleClass(arrows, false);
+        //toggleClass(arrows, false);
         toggleClass(shopText, true);
-      }, transitionTime*1000);
+      }, transitionTime * 1000);
     }
-    shopMenuMover.classList.toggle("move",!open);
-    setTimeout(function() {shopMenuMover.classList.toggle("move",open);},transitionTime*1000);
+    shopMenuMover.classList.toggle("move", !open);
+    setTimeout(function() {
+      shopMenuMover.classList.toggle("move", open);
+    }, transitionTime * 1000);
   });
 
   function toggleClass(classArray, toggle) {
     Array.from(classArray).forEach((item, i) => {
-      if(toggle) {
+      if (toggle) {
         item.style.display = "block";
       } else {
         item.style.display = "none";
@@ -135,8 +136,8 @@ window.onload = function what() {
 
   console.log("Width: " + Background.offsetWidth);
 
-  var amp = 12/2;
-  var freq = 1/32;
+  var amp = 12 / 2;
+  var freq = 1 / 32;
   var position;
   var i = 0;
 
@@ -152,25 +153,30 @@ window.onload = function what() {
   var cloudHeight = 100;
   var cloudHeightRand = 300;
 
-  var cloudCoors = [[0,0],[0,0],[0,0],[0,0]];
+  var cloudCoors = [
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0]
+  ];
 
   cloudArray.forEach((cloud, i) => {
-    cloudCoors[i] = [(Math.ceil(Math.random() * randomness)+ spawnWidth*i/4),(Math.ceil(Math.random() *cloudHeightRand)-cloudHeight)]
-    cloud.style.transform = "scale(0.5)"+ " translate(" + cloudCoors[i][0] + "px," + cloudCoors[i][1] + "px)";
+    cloudCoors[i] = [(Math.ceil(Math.random() * randomness) + spawnWidth * i / 4), (Math.ceil(Math.random() * cloudHeightRand) - cloudHeight)]
+    cloud.style.transform = "scale(0.5)" + " translate(" + cloudCoors[i][0] + "px," + cloudCoors[i][1] + "px)";
   });
 
 
-//Animations
+  //Animations
   function cloudAnim() {
     cloudArray.forEach((cloud, i) => {
       //if it hits the end reset the various things
-      if (cloudCoors[i][0]>2200) {
+      if (cloudCoors[i][0] > 2200) {
         var cloudNum = Math.ceil(Math.random() * 5);
         cloudCoors[i][0] = -800;
-        cloudCoors[i][1] = (Math.ceil(Math.random() *cloudHeightRand)-cloudHeight);
+        cloudCoors[i][1] = (Math.ceil(Math.random() * cloudHeightRand) - cloudHeight);
       }
       cloudCoors[i][0] += 1;
-      cloud.style.transform = "scale(0.5)"+ " translate(" + cloudCoors[i][0] + "px," + cloudCoors[i][1] + "px)";
+      cloud.style.transform = "scale(0.5)" + " translate(" + cloudCoors[i][0] + "px," + cloudCoors[i][1] + "px)";
     });
 
   }
@@ -182,7 +188,7 @@ window.onload = function what() {
   function waveAnim() {
     if (waveX == breakPoint) {
       waveX = 1;
-    }else {
+    } else {
       waveX++;
     }
 
@@ -191,8 +197,8 @@ window.onload = function what() {
   }
 
   function boatAnim() {
-    position = amp*Math.sin(i*freq*Math.PI*2);
-    angle = angleAmp*Math.atan(-amp*freq*Math.PI*2*Math.cos(i*freq*Math.PI*2));
+    position = amp * Math.sin(i * freq * Math.PI * 2);
+    angle = angleAmp * Math.atan(-amp * freq * Math.PI * 2 * Math.cos(i * freq * Math.PI * 2));
     Boat.transform = "translateY(" + position + "px) " + "rotate(" + angle + "deg)";
 
     i += 0.05;
@@ -202,24 +208,38 @@ window.onload = function what() {
   var riseHeight;
 
   function riseAnim() {
-    if (++j>riseHeight) {
+    if (++j > riseHeight) {
       clearInterval(riseId);
       j = 0;
     } else {
-      Boat.top = 111 - j - riseHeight*(playerInventory.upgrades[0]-2) + "px";
+      Boat.top = 111 - j - riseHeight * (playerInventory.upgrades[0] - 2) + "px";
     }
   }
 
   //upgrade functions
+  var SFX = document.getElementsByClassName('SFX');
+  //sets volume
+  Array.from(SFX).forEach((item, i) => {
+    item.volume = 0.2;
+  });
+
+
 
   function playShopSFX() {
-    upgradeSFX.currentTime = 0;
-    upgradeSFX.play();
+    //Cash Register
+    SFX[0].currentTime = 0;
+    SFX[0].play();
   }
 
   function playUpgradeSFX() {
-    upgradeSFX.currentTime = 0;
-    upgradeSFX.play();
+    SFX[1].currentTime = 0;
+    SFX[1].play();
+    SFX[2].currentTime = 0;
+    SFX[2].play();
+    currentMusic.pause();
+    setTimeout(function() {
+      currentMusic.play();
+    }, 3500);
   }
 
   function upgradeHull() {
@@ -240,7 +260,7 @@ window.onload = function what() {
       //raises the boat up a little so the bigger hull can be accomadated for
       j = 0;
       riseHeight = 20;
-      riseId = setInterval(riseAnim,100);
+      riseId = setInterval(riseAnim, 100);
       costTag.style.opacity = 0.001;
     }
   }
@@ -293,34 +313,58 @@ window.onload = function what() {
   var soundtrackAudioSource = document.getElementById(mainShop.displayItems[0].getName());
 
   console.log(soundtrackAudioSource);
-  soundtrackImage.addEventListener('mouseenter', function () {
-    backgroundMusic[currentMusic].pause();
-    soundtrackAudioSource.play();
-    soundtrackAudioSource.volume = 0.1;
-    image.src = "UI\\ShopMenu\\soundtrackButton(2).png";
-    setTimeout(function() {
+  soundtrackImage.addEventListener('mouseenter', function() {
+    if (!playerInventory.open) {
+      currentMusic.pause();
+      soundtrackAudioSource.play();
+      soundtrackAudioSource.volume = 0.1;
+      image.src = "UI\\ShopMenu\\soundtrackButton(2).png";
+      setTimeout(function() {
+        if (!mainShop.displayItems[0].disabled) {
+          soundtrackAudioSource.pause();
+          soundtrackAudioSource.currentTime = 0;
+          currentMusic.play();
+          image.src = "UI\\ShopMenu\\soundtrackButton.png";
+        }
+      }, 6000);
+    }
+  });
+  soundtrackImage.addEventListener('mouseleave', function() {
+    if (!playerInventory.open) {
       soundtrackAudioSource.pause();
       soundtrackAudioSource.currentTime = 0;
-      backgroundMusic[currentMusic].play();
+      currentMusic.play();
       image.src = "UI\\ShopMenu\\soundtrackButton.png";
-    }, 6000);
-  });
-  soundtrackImage.addEventListener('mouseleave', function () {
-    soundtrackAudioSource.pause();
-    soundtrackAudioSource.currentTime = 0;
-    backgroundMusic[currentMusic].play();
-    image.src = "UI\\ShopMenu\\soundtrackButton.png";
+    }
   });
 
-  //Buying functions
+  //Buying function and inventory cycle function
   shopButtons = document.getElementsByClassName("shopButton");
   Array.from(shopButtons).forEach((item, i) => {
     item.addEventListener('click', function() {
-      console.log("time");
-      mainShop.buyItem(i);
-      playShopSFX();
-
-
+      if (!playerInventory.open) {
+        playShopSFX();
+        //if music bought then it sets it as the current background music
+        if (i == 0) {
+          currentMusic.pause();
+          currentMusic = document.getElementById(mainShop.displayItems[0].getName());
+          currentMusic.play();
+        }
+        inventoryItems[i].src = mainShop.buyItem(i).imageSrc;
+      } else {
+        if (inventoryItems[i].src=="file:///C:/Users/Elliot/github/pirate-minigame/noItem.png");
+        else {
+        inventoryItems[i].src = playerInventory.nextItem(i).imageSrc;
+        if (i==0) {
+          currentMusic.pause();
+          var songName = playerInventory.displayItems[0].getName();
+          currentMusic = document.getElementById(songName);
+          //updates name on costTag
+          costText.innerHTML = songName;
+          currentMusic.play();
+        }
+        }
+      }
     });
   });
 

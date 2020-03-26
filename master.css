@@ -217,6 +217,14 @@ body {
   height: 100%;
 }
 
+.inventoryItem {
+    display: none;
+}
+
+.item {
+  pointer-events: none;
+}
+
 .leftShopItem {
   position: absolute;
   height: 60px;

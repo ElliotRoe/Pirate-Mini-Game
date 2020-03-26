@@ -46,6 +46,7 @@ class Shop {
     this.connectedInven.addItem(item);
     item.disabled = true;
     this.connectedInven.money -= item.cost;
+    return item;
   }
 
   buyUpgrade(upgradeIndex) {
@@ -139,14 +140,14 @@ class Item {
 }
 
 Shop.allItemList = [
-  new Item("Theme 1",[24,0,0], 0,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 01.wav"),
-  new Item("Theme 2",[24,0,0],75,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 05.wav"),
-  new Item("Peaceful 1",[24,0,0],100,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 09.wav"),
-  new Item("Peaceful 2",[24,0,0],100,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 11.wav"),
-  new Item("Halloween 1",[24,0,0],125,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 14.wav"),
-  new Item("Halloween 2",[24,0,0],150,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 16 - Halloween.wav"),
-  new Item("Hawaiian",[24,0,0],150,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 19.wav"),
-  new Item("Excited",[24,0,0],150,"Soundtrack","PlayButton.png","Audio\\Music Loops\\Casual Game Music 20.wav"),
+  new Item("Theme 1",[24,0,0], 0,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 01.wav"),
+  new Item("Theme 2",[24,0,0],75,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 05.wav"),
+  new Item("Peaceful 1",[24,0,0],100,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 09.wav"),
+  new Item("Peaceful 2",[24,0,0],100,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 11.wav"),
+  new Item("Halloween 1",[24,0,0],125,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 14.wav"),
+  new Item("Halloween 2",[24,0,0],150,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 16 - Halloween.wav"),
+  new Item("Hawaiian",[24,0,0],150,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 19.wav"),
+  new Item("Excited",[24,0,0],150,"Soundtrack","UI\\ShopMenu\\soundtrackButton(2).png","Audio\\Music Loops\\Casual Game Music 20.wav"),
   new Item("Bexley Coding Flag",[24,0,0],150,"Flag","Flag(1).png"),
-  new Item("Wolf Mast Head",[24,0,0],150,"Mast","Mast(1).png"),
+  new Item("Wolf Mast Head",[24,0,0],150,"Mast","FigureIcon(1).png"),
 ];

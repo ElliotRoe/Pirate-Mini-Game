@@ -162,4 +162,14 @@ class Inventory {
     temp += this.displayIndex[0] + "#" + this.displayIndex[1] + "#" + this.displayIndex[2] + "#";
     return temp;
   }
+
+  getJSON() {
+
+    return {
+      playerID: this.playerID,
+      items: this.items,
+      upgrades: this.upgrades,
+      displayIndex: this.displayIndex
+    }
+  }
 }

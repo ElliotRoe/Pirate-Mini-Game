@@ -81,6 +81,14 @@ class Shop {
     }
     return temp;
   }
+
+  getJSON() {
+    return {
+      displayItems: this.displayItems,
+      alreadyDisplayed: this.alreadyDisplayed,
+      boughtItems: this.boughtItems
+    }
+  }
 }
 
 class Item {
@@ -143,6 +151,13 @@ class Item {
     var time = [Math.floor(left/3600000),Math.floor(left/60000)%60,Math.round(left/1000)%60];
     var timePrint = Math.floor(time[0]/10) + "" + time[0]%10+":"+Math.floor(time[1]/10) + "" + time[1]%10+":"+Math.floor(time[2]/10) + "" + time[2]%10
     return timePrint;
+  }
+
+  getJSON() {
+    return {
+      name: this.itemName,
+      startTime: this.startTime
+    }
   }
 
 }

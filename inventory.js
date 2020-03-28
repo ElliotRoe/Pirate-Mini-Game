@@ -114,12 +114,13 @@ class Inventory {
   }
 
   contains(itemToSearch) {
+    var contains = false;
     this.items.forEach((item, i) => {
       if (item.getName() == itemToSearch.getName()) {
-        return true
+        contains = true;
       }
     });
-    return false;
+    return contains;
   }
 
   parseInventory(inventory) {

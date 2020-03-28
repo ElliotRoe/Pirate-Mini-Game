@@ -13,7 +13,9 @@ class Shop {
     //index 0 is left (Soundtrack); 1 is right (Flag); 2 is bottom (Figurehead);
     this.displayItems = this.setInitalDisplayItems(this.numberOfItemsDisplayed);
     this.connectedInven = inventory;
+  }
 
+  beginUpdate() {
     var self = this;
     self.updateDisplayItems();
     setInterval(function() {
@@ -55,12 +57,14 @@ class Shop {
     this.connectedInven.addItem(item);
     item.disabled = true;
     this.connectedInven.money -= item.cost;
+
     return item;
   }
 
   buyUpgrade(upgradeIndex) {
     //0 is hull; 1 is mast; 2 is cannon;
     this.connectedInven.money -= this.connectedInven.upgradeCosts[upgradeIndex];
+
   }
 
   getNewItem(type) {
@@ -79,6 +83,7 @@ class Shop {
           break;
       }
     }
+
     return temp;
   }
 
@@ -107,11 +112,27 @@ class Item {
     if (audioSrc === undefined) audioSrc = ""; else
     this.audioSrc = audioSrc;
     this.cost = cost;
-    this.itemType = type;
     this.expired = false;
     this.ID;
     this.type = type;
     this.disabled = false;
+  }
+
+  static generateItemArray(itemArray) {
+    var returnArray = new Array();
+    itemArray.forEach((item, i) => {
+      var temp;
+      if (item === null) temp = null; else {
+        temp = new Item(item.name,item.timeParam,item.cost,item.type, item.imageSrc);
+        temp.startTime = item.startTime;
+        if (item.audioSrc===null);
+        else temp.audioSrc = item.audioSrc;
+        temp.expired = item.expired;
+        temp.disabled = item.disabled;
+      }
+      returnArray.push(temp);
+    });
+    return returnArray;
   }
 
   isExpired() {
